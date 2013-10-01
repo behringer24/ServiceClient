@@ -15,7 +15,7 @@ import java.util.ArrayList;
 /**
  * Send GET and POST requests to server with support of multipart requests and file uploads
  * Inspired by example code from www.codejava.net
- * @author Andreas Behringer <abe@activecube.de> 
+ * @author Andreas Behringer <abe@activecube.de>
  */
 public class ServiceClient {
 
