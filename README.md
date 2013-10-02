@@ -1,12 +1,12 @@
 # ServiceRequest
 
-This is a utility Java class developed for Android to handle easy web service requests. The response can be plain text or JSON. For the low level connection HttpUrlConnection is used.
+A utility Java class developed for Android to handle easy web service requests. The response can be plain text or JSON. For the low level connection HttpUrlConnection is used.
 
 ## Features
 
 - easy handling of POST and GET requests
 - supports String or JSONObject as response types
-- supports Multipart-Form-Data post for uploading files
+- supports Multipart-Form-Data POST for uploading files
 
 ## Example code
 
