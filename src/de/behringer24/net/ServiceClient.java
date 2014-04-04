@@ -96,7 +96,6 @@ public class ServiceClient {
 	 * @throws java.io.IOException, JSONException
 	 */
 	public JSONObject requestJson() throws IOException, JSONException {
-		JSONObject jsonObject = null;
 		return new JSONObject(request());
 	}
 
