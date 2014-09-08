@@ -25,12 +25,12 @@ try {
 
 JSONObject as response
 ```java
-ServiceClient service = new ServiceClient("http://yoursite.com/api/service", RequestMethod.POST);
+ServiceClient service = new ServiceClient("http://yoursite.com/api/jsonService", RequestMethod.POST);
 service.addParameter("name", "Max Mustermann");
 service.addParameter("email", "max@mustermann.com");
 
 try {
-	String response = service.requestJson();
+	JSONObject response = service.requestJson();
 } catch {IOException e} {
 	// handle connection errors
 } catch {JSONException e}
