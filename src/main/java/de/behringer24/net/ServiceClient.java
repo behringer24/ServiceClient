@@ -1,5 +1,7 @@
 package de.behringer24.net;
 
+import android.util.Log;
+
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
@@ -185,8 +187,10 @@ public class ServiceClient {
 		// Build URL
 		if (method == RequestMethod.GET) {
 			url = new URL(this.requestUrl + "?" + urlParams);
+			Log.d("ServiceClient", "GET Request: " + this.requestUrl + "?" + urlParams);
 		} else {
 			url = new URL(this.requestUrl);
+			Log.d("ServiceClient", "POST Request: " + this.requestUrl);
 		}
 
 		// Open connection and set parameters
