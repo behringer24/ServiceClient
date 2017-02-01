@@ -39,6 +39,7 @@ public class ServiceClient {
 	private RequestMethod method;
 	private OutputStream outputStream;
 	private PrintWriter writer;
+	private Boolean useCaches = false;
 
 	/**
 	 * Constructor initializes class
@@ -90,6 +91,15 @@ public class ServiceClient {
 	 */
 	public void setCharset(String charset) {
 		this.charset = charset;
+	}
+
+	/**
+	 * Enable or disable the usage of caches in requests
+	 * Cachedir and HttpResponseCache have to be configured outside
+	 * @param useCaches
+     */
+	public void setUseCaches(Boolean useCaches) {
+		this.useCaches = useCaches;
 	}
 
 	/**
@@ -197,7 +207,7 @@ public class ServiceClient {
 		// Open connection and set parameters
 		httpConn = (HttpURLConnection) url.openConnection();
 		httpConn.setDoInput(true);
-		httpConn.setUseCaches(false);
+		httpConn.setUseCaches(this.useCaches);
 
 		// Set request headers
 		for (NameValuePair header: headers) {
@@ -248,6 +258,8 @@ public class ServiceClient {
 		} else {
 			throw new IOException("Server returned non-OK status: " + status);
 		}
+
+		Log.d("ServiceClient", "Response " + status + " (" + httpConn.getHeaderField("Date") + ") " + response);
 
 		return response;
 	}
