@@ -206,8 +206,8 @@ public class ServiceClient {
 
 		// Open connection and set parameters
 		httpConn = (HttpURLConnection) url.openConnection();
-		httpConn.setDoInput(true);
 		httpConn.setUseCaches(this.useCaches);
+		httpConn.setDoInput(true);
 
 		// Set request headers
 		for (NameValuePair header: headers) {
@@ -219,10 +219,8 @@ public class ServiceClient {
 			httpConn.setDoOutput(true); // indicates POST method
 			outputStream = httpConn.getOutputStream();
 			writer = new PrintWriter(new OutputStreamWriter(outputStream, charset), true);
-		}
 
-		// Build POSt request for simple or multipart requests
-		if (method == RequestMethod.POST) {
+			// Build POSt request for simple or multipart requests
 			if (files.size() == 0) {
 				writePostParameters(urlParams);
 			} else {
@@ -237,9 +235,8 @@ public class ServiceClient {
 				writer.append(LINE_FEED).flush();
 				writer.append("--" + boundary + "--").append(LINE_FEED);
 			}
+			writer.close();
 		}
-
-		writer.close();
 
 		response = "";
 
