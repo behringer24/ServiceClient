@@ -34,7 +34,6 @@ public class ServiceClient {
 	private final String hyphens = "--";
 	private final String requestUrl;
 	private static final String LINE_FEED = "\r\n";
-	private HttpURLConnection httpConn;
 	private String charset = "UTF-8";
 	private RequestMethod method;
 	private OutputStream outputStream;
@@ -96,7 +95,7 @@ public class ServiceClient {
 	/**
 	 * Enable or disable the usage of caches in requests
 	 * Cachedir and HttpResponseCache have to be configured outside
-	 * @param useCaches
+	 * @param useCaches switch on request caching
      */
 	public void setUseCaches(Boolean useCaches) {
 		this.useCaches = useCaches;
@@ -118,9 +117,9 @@ public class ServiceClient {
 	 * @param value field value
 	 */
 	private void writeMultipartParameter(String name, String value) {
-		writer.append(hyphens + boundary).append(LINE_FEED);
-		writer.append("Content-Disposition: form-data; name=\"" + name + "\"").append(LINE_FEED);
-		writer.append("Content-Type: text/plain; charset=" + charset).append(LINE_FEED);
+		writer.append(hyphens).append(boundary).append(LINE_FEED);
+		writer.append("Content-Disposition: form-data; name=\"").append(name).append("\"").append(LINE_FEED);
+		writer.append("Content-Type: text/plain; charset=").append(charset).append(LINE_FEED);
 		writer.append(LINE_FEED);
 		writer.append(value).append(LINE_FEED);
 		writer.flush();
@@ -138,20 +137,20 @@ public class ServiceClient {
 	 * Writes a file upload section to the request
 	 * @param fieldName name attribute in <input type="file" name="..." />
 	 * @param uploadFile a File to be uploaded
-	 * @throws java.io.IOException
+	 * @throws java.io.IOException Exception on general IO Errors
 	 */
 	private void writeMultipartFile(String fieldName, File uploadFile) throws IOException {
 		String fileName = uploadFile.getName();
-		writer.append(hyphens + boundary).append(LINE_FEED);
-		writer.append("Content-Disposition: form-data; name=\"" + fieldName	+ "\"; filename=\"" + fileName + "\"").append(LINE_FEED);
-		writer.append("Content-Type: " + URLConnection.guessContentTypeFromName(fileName)).append(LINE_FEED);
+		writer.append(hyphens).append(boundary).append(LINE_FEED);
+		writer.append("Content-Disposition: form-data; name=\"").append(fieldName).append("\"; filename=\"").append(fileName).append("\"").append(LINE_FEED);
+		writer.append("Content-Type: ").append(URLConnection.guessContentTypeFromName(fileName)).append(LINE_FEED);
 		writer.append("Content-Transfer-Encoding: binary").append(LINE_FEED);
 		writer.append(LINE_FEED);
 		writer.flush();
 
 		FileInputStream inputStream = new FileInputStream(uploadFile);
 		byte[] buffer = new byte[4096];
-		int bytesRead = -1;
+		int bytesRead;
 		while ((bytesRead = inputStream.read(buffer)) != -1) {
 			outputStream.write(buffer, 0, bytesRead);
 		}
@@ -165,12 +164,14 @@ public class ServiceClient {
 	/**
 	 * Builds the request and receives response from the server
 	 * @return String with server response body
-	 * @throws java.io.IOException
+	 * @throws java.io.IOException Exception thrown on general IO error
 	 */
 	public String request() throws IOException {
+
+		HttpURLConnection httpConn;
 		String urlParams = "";
-		URL url = null;
-		String response = null;
+		URL url;
+		String response;
 
 		// Default header
 		addHeader("User-Agent", "ServiceClient (behringer24.de) Java Client");
@@ -233,7 +234,7 @@ public class ServiceClient {
 					writeMultipartFile(file.getName(), sendfile);
 				}
 				writer.append(LINE_FEED).flush();
-				writer.append("--" + boundary + "--").append(LINE_FEED);
+				writer.append("--").append(boundary).append("--").append(LINE_FEED);
 			}
 			writer.close();
 		}
@@ -246,7 +247,7 @@ public class ServiceClient {
 		// If 200 OK read input stream and build response string
 		if (status == HttpURLConnection.HTTP_OK) {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(httpConn.getInputStream()));
-			String line = null;
+			String line;
 			while ((line = reader.readLine()) != null) {
 				response += line;
 			}
