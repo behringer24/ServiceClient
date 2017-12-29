@@ -10,6 +10,7 @@ A utility Java class developed for Android to handle easy web service requests. 
 
 ## How to include the dependency using JitPack.io
 
+[![](https://jitpack.io/v/behringer24/ServiceClient.svg)](https://jitpack.io/#behringer24/ServiceClient)
 Step 1. Add the JitPack repository to your build file
 Add it in your root build.gradle at the end of repositories:
 ```gradle
