@@ -8,6 +8,25 @@ A utility Java class developed for Android to handle easy web service requests. 
 - supports String or JSONObject as response types
 - supports Multipart-Form-Data POST for uploading files
 
+## How to include the dependency using JitPack.io
+
+Step 1. Add the JitPack repository to your build file
+Add it in your root build.gradle at the end of repositories:
+```gradle
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+Step 2. Add the dependency
+```gradle
+dependencies {
+	        compile 'com.github.behringer24:ServiceClient:1.1'
+	}
+```
+
 ## Example code
 
 String es response
