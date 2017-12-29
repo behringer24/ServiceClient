@@ -1,9 +1,7 @@
-package de.behringer24.net;
+package com.github.behringer24.serviceclient;
 
 import android.util.Log;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,7 +61,7 @@ public class ServiceClient {
 	 * @param value Value of the request parameter
 	 */
 	public void addParam(String name, String value) {
-		parameters.add(new BasicNameValuePair(name, value));
+		parameters.add(new NameValuePair(name, value));
 	}
 
 	/**
@@ -72,7 +70,7 @@ public class ServiceClient {
 	 * @param url Absolute uri of the file on the device
 	 */
 	public void addFile(String name, String url) {
-		files.add(new BasicNameValuePair(name, url));
+		files.add(new NameValuePair(name, url));
 	}
 
 	/**
@@ -81,7 +79,7 @@ public class ServiceClient {
 	 * @param value the value/content of the header
 	 */
 	public void addHeader(String name, String value) {
-		headers.add(new BasicNameValuePair(name, value));
+		headers.add(new NameValuePair(name, value));
 	}
 
 	/**
